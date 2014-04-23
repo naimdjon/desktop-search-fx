@@ -1,5 +1,23 @@
 <project>
-<artifactId>desktop-search-fx</artifactId>
-<groupId>org.desktop-search</groupdId>
-<versionId>0.01-SNAPSHOT</versionId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>desktop-search-fx</artifactId>
+    <groupId>org.desktop-search</groupId>
+    <versionId>0.01-SNAPSHOT</versionId>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-parent</artifactId>
+            <version>4.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-demo</artifactId>
+            <version>4.7.2</version>
+        </dependency>
+    </dependencies>
 </project>
