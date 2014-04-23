@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class IndexTests {
@@ -36,11 +37,12 @@ public class IndexTests {
 
     @After
     public void tearDown() throws Exception {
-        LocalFiles.deleteRecursively(index,new File("index"));
+        LocalFiles.deleteRecursively(index, new File("index"));
     }
 
 
     @Test public void testIndexesOneDoc() {
         assertNotNull(index.listFiles());
+        assertEquals(1,index.listFiles().length);
     }
 }
