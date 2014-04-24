@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.Date;
 
 public class Indexer {
-    static final String  INDEX_PATH=System.getProperty("destopsearch.index.path",System.getProperty("user.dir").concat(File.separator).concat("index"));
+    public static final String  INDEX_PATH=System.getProperty("destopsearch.index.path",System.getProperty("user.dir").concat(File.separator).concat("index"));
 
     public Indexer(File path) {
         index(path);
