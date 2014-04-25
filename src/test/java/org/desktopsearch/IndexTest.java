@@ -14,7 +14,7 @@ import java.nio.file.StandardOpenOption;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class IndexTests {
+public class IndexTest {
     final static String INDEX_PATH = System.getProperty("user.dir").concat(File.separator).concat("index");
     private File index;
 
