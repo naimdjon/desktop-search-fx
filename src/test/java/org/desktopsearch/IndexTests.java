@@ -17,18 +17,14 @@ import static org.junit.Assert.assertNotNull;
 
 public class IndexTests {
     final static String INDEX_PATH = System.getProperty("user.dir").concat(File.separator).concat("index");
-    private IndexWriter writer;
     private File index;
-    private Indexer indexer;
-    private int maxDoc;
 
     @Before
     public void setUp() throws Exception {
         index = new File("indexDocs");
         index.mkdirs();
         Files.write(Paths.get(new File(index, "doc1").toURI()), "test content".getBytes(), StandardOpenOption.CREATE);
-        indexer = new Indexer(index);
-        maxDoc= LocalSearcher.maxDoc(INDEX_PATH);
+        new Indexer(index);
     }
 
     @After
@@ -44,7 +40,12 @@ public class IndexTests {
     }
 
     @Test
+    public void testMaxOneDoc() throws Exception {
+        assertEquals(1, LocalSearcher.maxDoc(INDEX_PATH));
+    }
+
+    @Test
     public void testHitsOneDoc() throws Exception {
-        assertEquals(1,maxDoc);
+        assertEquals(1,LocalSearcher.hits(INDEX_PATH,"contents:test*"));
     }
 }
