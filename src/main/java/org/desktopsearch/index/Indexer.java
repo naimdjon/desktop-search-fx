@@ -8,45 +8,70 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.desktopsearch.Stopwatch;
 
 import java.io.*;
-import java.util.Date;
+import java.util.concurrent.*;
 
 public class Indexer {
-    public static final String  INDEX_PATH=System.getProperty("destopsearch.index.path",System.getProperty("user.dir").concat(File.separator).concat("index"));
+    public static final String  INDEX_PATH=System.getProperty("desktopsearch.index.path",System.getProperty("user.dir").concat(File.separator).concat("index"));
+    private final File documentsPath;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public Indexer(File path) {
-        index(path);
+    public Indexer(final File documentPath) {
+        this.documentsPath =documentPath;
     }
 
-    public void index(File path) {
-        final Date start = new Date();
-        try {
-            System.out.println("Indexing to directory '" + INDEX_PATH + "'...");
-            final Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-            final IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
-            iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-            final IndexWriter writer = new IndexWriter(FSDirectory.open(new File(INDEX_PATH)), iwc);
-            try {
-                indexDocsIfReadable(writer, path);
-            } finally {
-                writer.close();
+    public static Indexer createStarted(final File documentsPath) {
+        return new Indexer(documentsPath).start();
+    }
+
+    public void awaitTermination(final long timeoutSeconds) throws TimeoutException{
+        final Stopwatch stopwatch = Stopwatch.start();
+        while (!currentFuture.isDone()) {
+            if (stopwatch.elapsed(TimeUnit.SECONDS) > timeoutSeconds) {
+                throw new TimeoutException("Indexing timed out");
             }
-            Date end = new Date();
-            System.out.println(end.getTime() - start.getTime() + " total milliseconds");
-        } catch (IOException e) {
-            System.out.println(" caught a " + e.getClass() +
-                    "\n with message: " + e.getMessage());
         }
     }
 
-    static void indexDocsIfReadable(IndexWriter writer, File file) throws IOException {
+    private Indexer start() {
+        index();
+        return this;
+    }
+
+    private Future currentFuture;
+
+    public void index()throws IllegalStateException {
+        if (currentFuture != null && !currentFuture.isDone()) {
+            throw new IllegalStateException("Index has already been started!");
+        }
+        currentFuture = executor.submit(() -> {
+            final long start = System.nanoTime();
+            try {
+                System.out.println("Index path '" + INDEX_PATH + "'...");
+                final Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+                final IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+                iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+                try (IndexWriter writer = new IndexWriter(FSDirectory.open(new File(INDEX_PATH)), iwc)) {
+                    indexDocsIfReadable(writer, documentsPath);
+                }
+            } catch (IOException e) {
+                System.out.println(" caught a " + e.getClass() +
+                        "\n with message: " + e.getMessage());
+            }
+            final long end = System.nanoTime();
+            System.out.printf("Indexing took %d seconds for the path %s\n", TimeUnit.NANOSECONDS.toSeconds(end - start), documentsPath.getAbsolutePath());
+        });
+    }
+
+    private void indexDocsIfReadable(IndexWriter writer, File file) throws IOException {
         if (file.canRead()) {
             indexDocsImp(writer, file);
         }
     }
 
-    private static void indexDocsImp(IndexWriter writer, File file) throws IOException {
+    private  void indexDocsImp(IndexWriter writer, File file) throws IOException {
         if (file.isDirectory()) {
             String[] files = file.list();
             for (int i = 0; files != null && i < files.length; i++) {
@@ -63,7 +88,7 @@ public class Indexer {
         }
     }
 
-    private static void addDocToIndex(IndexWriter writer, File file, FileInputStream fis) throws IOException {
+    private  void addDocToIndex(IndexWriter writer, File file, FileInputStream fis) throws IOException {
         Document doc = new Document();
         Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
         doc.add(pathField);

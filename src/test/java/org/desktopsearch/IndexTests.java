@@ -1,6 +1,5 @@
 package org.desktopsearch;
 
-import org.apache.lucene.index.IndexWriter;
 import org.desktopsearch.index.Indexer;
 import org.desktopsearch.search.LocalSearcher;
 import org.junit.After;
@@ -24,7 +23,7 @@ public class IndexTests {
         index = new File("indexDocs");
         index.mkdirs();
         Files.write(Paths.get(new File(index, "doc1").toURI()), "test content".getBytes(), StandardOpenOption.CREATE);
-        new Indexer(index);
+        Indexer.createStarted(index).awaitTermination(2L);
     }
 
     @After
