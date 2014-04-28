@@ -8,13 +8,13 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.desktopsearch.Constants;
 import org.desktopsearch.Stopwatch;
 
 import java.io.*;
 import java.util.concurrent.*;
 
 public class Indexer {
-    public static final String  INDEX_PATH=System.getProperty("desktopsearch.index.path",System.getProperty("user.dir").concat(File.separator).concat("index"));
     private final File documentsPath;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -49,11 +49,11 @@ public class Indexer {
         currentFuture = executor.submit(() -> {
             final long start = System.nanoTime();
             try {
-                System.out.println("Index path '" + INDEX_PATH + "'...");
+                System.out.println("Index path '" + Constants.INDEX_PATH + "'...");
                 final Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
                 final IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
                 iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-                try (IndexWriter writer = new IndexWriter(FSDirectory.open(new File(INDEX_PATH)), iwc)) {
+                try (IndexWriter writer = new IndexWriter(FSDirectory.open(new File(Constants.INDEX_PATH)), iwc)) {
                     indexDocsIfReadable(writer, documentsPath);
                 }
             } catch (IOException e) {

@@ -1,14 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin:'application'
+apply plugin: 'application'
 
 mainClassName = System.getProperty("mainClassName") ?: "org.desktopsearch.Main"
 
 project.buildDir = 'target'
 version = '0.1-SNAPSHOT'
 
-jar{
-    destinationDir=project.buildDir
+jar {
+    destinationDir = project.buildDir
 }
 
 repositories {
@@ -24,7 +24,11 @@ dependencies {
 
 idea {
     project {
-        jdkName = '1.8'
-        languageLevel = '1.8'
+        module {
+            jdkName = '1.8'
+            ext.languageLevel = '1.8'
+            downloadSources = true
+            downloadJavadoc = true
+        }
     }
 }
