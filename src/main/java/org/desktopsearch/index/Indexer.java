@@ -33,6 +33,7 @@ public class Indexer {
                 throw new TimeoutException("Indexing timed out");
             }
         }
+        executor.shutdownNow();
     }
 
     private Indexer start() {

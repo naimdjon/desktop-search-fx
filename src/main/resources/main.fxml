@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/"
+            fx:controller="org.desktopsearch.MainController">
+    <top>
+        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextField fx:id="queryTextField"/>
+                <Button mnemonicParsing="false" text="Search" fx:id="searchButton"/>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane prefHeight="182.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <content>
+                <Label text="Total hits:" fx:id="totalHits"/>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>
+
+        <!--
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.BorderPane?>
+
+        <BorderPane fx:controller="org.desktopsearch.MainController"
+                    xmlns:fx="http://javafx.com/fxml">
+            <top>
+                <Label text="Page Title"/>
+                <Button fx:id="searchButton" text="Click Me!"/>
+            </top>
+            <center>
+                <Label text="Some data here"/>
+            </center>
+        </BorderPane>-->
