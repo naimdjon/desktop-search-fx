@@ -1,5 +1,6 @@
+
 .root {
-    -fx-glass-color: rgba(95, 158, 160, 0.9);
+    -fx-glass-color: rgba(255,102,102, 0.9);
 }
 
 .alert-dialog {
