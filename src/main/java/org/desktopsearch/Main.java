@@ -18,13 +18,11 @@ public class Main extends Application {
     private final Group root = new Group();
 
     private void init(final Stage primaryStage) throws IOException {
-        URL location = test.class.getClassLoader().getResource("./main.fxml");
-        System.out.println(location);
-        FXMLLoader fxmlLoader = new FXMLLoader(location);
-        Pane contentPane = fxmlLoader.load();
-        MainController controller = fxmlLoader.getController();
+        final URL location = test.class.getClassLoader().getResource("./main.fxml");
+        final FXMLLoader fxmlLoader = new FXMLLoader(location);
+        final Pane contentPane = fxmlLoader.load();
+        final MainController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
-        System.out.println(controller);
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 768));
         root.getChildren().add(contentPane);
