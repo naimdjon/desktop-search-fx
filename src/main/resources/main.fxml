@@ -9,7 +9,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="org.desktopsearch.MainController">
+            fx:controller="org.desktopsearch.SearchController">
     <top>
         <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>

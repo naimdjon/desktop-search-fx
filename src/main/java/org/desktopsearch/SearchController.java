@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static org.desktopsearch.search.LocalSearcher.search;
 
-public class MainController implements Initializable {
+public class SearchController implements Initializable {
     @FXML
     private Button searchButton;
 
