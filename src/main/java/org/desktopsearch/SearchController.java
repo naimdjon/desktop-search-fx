@@ -28,12 +28,13 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         searchButton.setOnAction(this::performSearch);
+        queryTextField.setOnAction(this::performSearch);
     }
 
     private void performSearch(final ActionEvent event) {
         try {
             final TopDocs result = search(queryTextField.getText());
-            System.out.printf("result.totalHits:" + result.totalHits);
+            System.out.println("result.totalHits:" + result.totalHits);
             totalHits.setText("Total hits:" + result.totalHits);
         } catch (Exception e) {
             e.printStackTrace();
