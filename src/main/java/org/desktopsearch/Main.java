@@ -19,7 +19,7 @@ public class Main extends Application {
 
     private void init(final Stage primaryStage) throws IOException {
         final Scene scene = new Scene(root, 600, 768);
-        scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
         final URL location = Main.class.getClassLoader().getResource("./main.fxml");
         final FXMLLoader fxmlLoader = new FXMLLoader(location);
         final Pane contentPane = fxmlLoader.load();

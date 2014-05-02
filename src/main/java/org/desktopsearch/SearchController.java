@@ -23,6 +23,7 @@ public class SearchController implements Initializable {
 
     @FXML
     private Label totalHits;
+
     private Stage stage;
 
     @Override
@@ -42,7 +43,7 @@ public class SearchController implements Initializable {
         }
     }
 
-    public void setStage(Stage stage) {
+    public void setStage(final Stage stage) {
         this.stage = stage;
     }
 }
