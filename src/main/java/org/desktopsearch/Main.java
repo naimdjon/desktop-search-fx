@@ -18,13 +18,15 @@ public class Main extends Application {
     private final Group root = new Group();
 
     private void init(final Stage primaryStage) throws IOException {
-        final URL location = test.class.getClassLoader().getResource("./main.fxml");
+        final Scene scene = new Scene(root, 600, 768);
+        scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
+        final URL location = Main.class.getClassLoader().getResource("./main.fxml");
         final FXMLLoader fxmlLoader = new FXMLLoader(location);
         final Pane contentPane = fxmlLoader.load();
         final SearchController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 600, 768));
+        primaryStage.setScene(scene);
         root.getChildren().add(contentPane);
     }
 
