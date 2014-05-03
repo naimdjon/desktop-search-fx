@@ -8,15 +8,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import java.net.URL?>
 <BorderPane styleClass="mainBody"
-        maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+        maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+        prefHeight="768.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/"
             fx:controller="org.desktopsearch.SearchController">
     <top>
-        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10">
             <children>
-                <TextField fx:id="queryTextField"/>
-                <Button mnemonicParsing="false" text="Search" fx:id="searchButton"/>
+                <TextField fx:id="queryTextField" prefWidth="480"/>
+                <Button mnemonicParsing="false" text="Search" fx:id="searchButton" styleClass="searchButton"/>
             </children>
         </HBox>
     </top>
