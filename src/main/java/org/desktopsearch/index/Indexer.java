@@ -9,7 +9,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.desktopsearch.Constants;
-import org.desktopsearch.Stopwatch;
+import org.desktopsearch.utils.Stopwatch;
 
 import java.io.*;
 import java.util.concurrent.*;
