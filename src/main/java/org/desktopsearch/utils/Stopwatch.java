@@ -1,4 +1,4 @@
-package org.desktopsearch;
+package org.desktopsearch.utils;
 
 import java.util.concurrent.TimeUnit;
 
