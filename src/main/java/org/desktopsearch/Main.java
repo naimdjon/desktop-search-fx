@@ -30,7 +30,7 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        Indexer.createStarted(new File("testindex")).awaitTermination(5L);
+        Indexer.createStarted(new File("src/main/resources/testindex")).awaitTermination(5L);
         init(primaryStage);
         primaryStage.show();
     }
