@@ -11,15 +11,13 @@ import org.desktopsearch.index.Indexer;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class Main extends Application {
 
     private final Group root = new Group();
 
     private void init(final Stage primaryStage) throws IOException {
-        final URL location = getClass().getClassLoader().getResource("./main.fxml");
-        final FXMLLoader fxmlLoader = new FXMLLoader(location);
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("./main.fxml"));
         final Pane contentPane = fxmlLoader.load();
         final SearchController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
