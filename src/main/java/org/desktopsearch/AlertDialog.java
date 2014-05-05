@@ -1,11 +1,13 @@
 package org.desktopsearch;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBuilder;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.layout.HBoxBuilder;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,16 +41,19 @@ public class AlertDialog {
     }
 
     private Scene buildScene(Stage stage, Stage dialog) {
-        return new Scene(
-                HBoxBuilder.create().styleClass("alert-dialog").children(
-                        new Label(message),
-                        ButtonBuilder.create().text("OK").cancelButton(true).onAction(actionEvent -> {
-                            stage.getScene().getRoot().setEffect(null);
-                            dialog.close();
-                        }).build()
-                ).build()
-                , Color.TRANSPARENT
-        );
+        final Button okButton = new Button("OK");
+        okButton.cancelButtonProperty().set(true);
+        okButton.setOnAction(closeDialog(stage, dialog));
+        final HBox hbox = new HBox(new Label(message), okButton);
+        hbox.getStyleClass().add("alert-dialog");
+        return new Scene(hbox, Color.TRANSPARENT);
+    }
+
+    private EventHandler<ActionEvent> closeDialog(Stage stage, Stage dialog) {
+        return actionEvent -> {
+            stage.getScene().getRoot().setEffect(null);
+            dialog.close();
+        };
     }
 
     class Coordinates {
