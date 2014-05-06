@@ -14,6 +14,8 @@ import org.desktopsearch.utils.Stopwatch;
 import java.io.*;
 import java.util.concurrent.*;
 
+import static org.desktopsearch.utils.Constants.Fields.contents;
+
 public class Indexer {
     private final File documentsPath;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -94,7 +96,7 @@ public class Indexer {
         Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
         doc.add(pathField);
         doc.add(new LongField("modified", file.lastModified(), Field.Store.NO));
-        doc.add(new TextField("contents", new BufferedReader(new InputStreamReader(fis, "UTF-8"))));
+        doc.add(new TextField(contents.name(), new BufferedReader(new InputStreamReader(fis, "UTF-8"))));
         if (writer.getConfig().getOpenMode() == IndexWriterConfig.OpenMode.CREATE) {
             System.out.println("adding " + file);
             writer.addDocument(doc);
