@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.desktopsearch.index.Indexer;
+import org.desktopsearch.utils.Resources;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Main extends Application {
     private final Group root = new Group();
 
     private void init(final Stage primaryStage) throws IOException {
-        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("./main.fxml"));
+        final FXMLLoader fxmlLoader = new FXMLLoader(Resources.loadResource("./main.fxml"));
         final Pane contentPane = fxmlLoader.load();
         final SearchController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
