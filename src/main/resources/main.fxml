@@ -16,8 +16,8 @@
     <top>
         <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10">
             <children>
-                <TextField fx:id="queryTextField" prefWidth="480"/>
-                <Button mnemonicParsing="false" text="Search" fx:id="searchButton" styleClass="searchButton"/>
+                <TextField fx:id="queryTextField" prefWidth="480" onAction="#performSearch"/>
+                <Button mnemonicParsing="false" text="Search" fx:id="searchButton" styleClass="searchButton"  onAction="#performSearch"/>
             </children>
         </HBox>
     </top>
