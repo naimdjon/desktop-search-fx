@@ -1,14 +1,12 @@
 package org.desktopsearch.search;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.TotalHitCountCollector;
+import org.apache.lucene.search.*;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.desktopsearch.utils.Constants;
@@ -44,6 +42,25 @@ public class LocalSearcher {
         }
         return 0;
     }
+
+    public static int search(final String query, final HitsProcessor processor) {
+        try {
+            try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(Constants.INDEX_PATH)))) {
+                final IndexSearcher indexSearcher = new IndexSearcher(reader);
+                final TopDocs results = indexSearcher.search(parseQuery(query), null, 20);
+                final ScoreDoc[] scoreDocs = results.scoreDocs;
+                for (int i = 0; i < Math.min(10, results.totalHits); i++) {
+                    processor.process(indexSearcher.doc(scoreDocs[i].doc));
+                }
+                return results.totalHits;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
+
     public static TopDocs search(final String query) {
         try {
             try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(Constants.INDEX_PATH)))) {
@@ -61,6 +78,6 @@ public class LocalSearcher {
 
 
     public static interface HitsProcessor{
-        public void process();
+        public void process(final Document doc);
     }
 }
