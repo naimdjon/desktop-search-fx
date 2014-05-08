@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import java.net.URL?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane styleClass="mainBody"
         maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
         prefHeight="768.0"
@@ -24,7 +25,15 @@
     <center>
         <ScrollPane prefHeight="182.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <content>
-                <Label text="Total hits:" fx:id="totalHits"/>
+                <VBox>
+                    <children>
+                        <Label text="Total hits:" fx:id="totalHitsLabel"/>
+                        <VBox fx:id="searchResults">
+                            <children>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
             </content>
         </ScrollPane>
     </center>
