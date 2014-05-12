@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<?import javafx.scene.layout.VBox?>
-<BorderPane styleClass="mainBody"
-        maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<BorderPane  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/"
+        styleClass="mainBody"
+        maxHeight="-Infinity"
+        maxWidth="-Infinity"
+        minHeight="-Infinity"
+        minWidth="-Infinity"
         prefHeight="768.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="org.desktopsearch.SearchController">
+        prefWidth="600.0"
+        fx:controller="org.desktopsearch.SearchController">
     <top>
-        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10">
+        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10" >
             <children>
                 <TextField fx:id="queryTextField" prefWidth="480" onAction="#performSearch"/>
-                <Button mnemonicParsing="false" text="Search" fx:id="searchButton" styleClass="searchButton"  onAction="#performSearch"/>
+                <Button mnemonicParsing="false" text="Search" styleClass="searchButton"  onAction="#performSearch"/>
             </children>
         </HBox>
     </top>
@@ -28,10 +26,10 @@
                 <VBox>
                     <children>
                         <Label text="Total hits:" fx:id="totalHitsLabel"/>
-                        <VBox fx:id="searchResults">
-                            <children>
-                            </children>
-                        </VBox>
+                        <ListView  fx:id="searchResults" minWidth="-Infinity"
+                                   prefWidth="560"
+                                   prefHeight="650"
+                                />
                     </children>
                 </VBox>
             </content>
