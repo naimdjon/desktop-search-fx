@@ -1,18 +1,19 @@
 package org.desktopsearch;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.desktopsearch.utils.Constants;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import static org.desktopsearch.search.LocalSearcher.search;
-import static org.desktopsearch.utils.Constants.Fields.contents;
 
 public class SearchController {
     @FXML
@@ -22,23 +23,23 @@ public class SearchController {
     private Label totalHitsLabel;
 
     @FXML
-    private VBox searchResults;
+    private ListView searchResults;
 
     private Stage stage;
 
     @SuppressWarnings("unused")
     public void performSearch(final ActionEvent event) {
         try {
-            final Collection<Node> children= new LinkedHashSet<>();
-            final int totalHits = search(queryTextField.getText(), doc -> {
-                children.add(new Label(doc.get(contents.name())));
-            });
+            final Collection<String> children= new LinkedHashSet<>();
+            search(queryTextField.getText(), System.out::println);
+            final int totalHits = search(queryTextField.getText(), doc -> children.add(doc.get(Constants.Fields.path.name())));
             totalHitsLabel.setText("Total hits:" + totalHits);
-            searchResults.getChildren().addAll(children);
+            ObservableList<String> items = FXCollections.observableArrayList(children);
+            searchResults.setItems(items);
             System.out.println("result.totalHitsLabel:" + totalHits);
         } catch (Exception e) {
             e.printStackTrace();
-            new AlertDialog(String.format("Error searching (%s)!",e.getMessage())).show(stage);
+            new AlertDialog(String.format("Error searching (%s)!","Error searching!")).show(stage);
         }
     }
 

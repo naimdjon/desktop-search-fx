@@ -25,7 +25,7 @@ public class AlertDialog {
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.initOwner(stage);
         dialog.setScene(buildScene(stage, dialog));
-        dialog.getScene().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+        dialog.getScene().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
         final Node root = dialog.getScene().getRoot();
         final Coordinates dragCoordinates = new Coordinates();
         root.setOnMousePressed(mouseEvent -> {

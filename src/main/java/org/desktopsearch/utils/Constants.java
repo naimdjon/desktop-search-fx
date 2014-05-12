@@ -7,7 +7,9 @@ public class Constants {
     public static final String INDEX_PATH = System.getProperty("desktopsearch.index.path", DEFAULT_INDEX_PATH);
 
     public enum Fields{
-        contents
+        contents,
+        path,
+        modified
     }
 
 }

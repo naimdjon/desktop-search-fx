@@ -14,7 +14,7 @@ import org.desktopsearch.utils.Stopwatch;
 import java.io.*;
 import java.util.concurrent.*;
 
-import static org.desktopsearch.utils.Constants.Fields.contents;
+import static org.desktopsearch.utils.Constants.Fields.*;
 
 public class Indexer {
     private final File documentsPath;
@@ -93,16 +93,16 @@ public class Indexer {
 
     private  void addDocToIndex(IndexWriter writer, File file, FileInputStream fis) throws IOException {
         Document doc = new Document();
-        Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
+        Field pathField = new StringField(path.name(), file.getPath(), Field.Store.YES);
         doc.add(pathField);
-        doc.add(new LongField("modified", file.lastModified(), Field.Store.NO));
+        doc.add(new LongField(modified.name(), file.lastModified(), Field.Store.NO));
         doc.add(new TextField(contents.name(), new BufferedReader(new InputStreamReader(fis, "UTF-8"))));
         if (writer.getConfig().getOpenMode() == IndexWriterConfig.OpenMode.CREATE) {
             System.out.println("adding " + file);
             writer.addDocument(doc);
         } else {
             System.out.println("updating " + file);
-            writer.updateDocument(new Term("path", file.getPath()), doc);
+            writer.updateDocument(new Term(path.name(), file.getPath()), doc);
         }
     }
 

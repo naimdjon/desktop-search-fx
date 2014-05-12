@@ -12,12 +12,13 @@ import org.apache.lucene.util.Version;
 import org.desktopsearch.utils.Constants;
 
 import java.io.File;
+import java.io.IOException;
 
 public class LocalSearcher {
 
     public static int maxDoc(final String indexPath) {
         try {
-            IndexReader reader= DirectoryReader.open(FSDirectory.open(new File(indexPath)));
+            IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(indexPath)));
             try {
                 return reader.maxDoc();
             } finally {
@@ -30,7 +31,7 @@ public class LocalSearcher {
     }
 
 
-    public static int hits(final String indexPath,final String query) {
+    public static int hits(final String indexPath, final String query) {
         try {
             final TotalHitCountCollector results = new TotalHitCountCollector();
             try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(indexPath)))) {
@@ -43,28 +44,22 @@ public class LocalSearcher {
         return 0;
     }
 
-    public static int search(final String query, final HitsProcessor processor) {
-        try {
-            try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(Constants.INDEX_PATH)))) {
-                final IndexSearcher indexSearcher = new IndexSearcher(reader);
-                final TopDocs results = indexSearcher.search(parseQuery(query), null, 20);
-                final ScoreDoc[] scoreDocs = results.scoreDocs;
-                for (int i = 0; i < Math.min(10, results.totalHits); i++) {
-                    processor.process(indexSearcher.doc(scoreDocs[i].doc));
-                }
-                return results.totalHits;
+    public static int search(final String query, final HitsProcessor processor) throws IOException, ParseException {
+        try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(Constants.INDEX_PATH)))) {
+            final IndexSearcher indexSearcher = new IndexSearcher(reader);
+            final TopDocs results = indexSearcher.search(parseQuery(query), null, 20);
+            final ScoreDoc[] scoreDocs = results.scoreDocs;
+            for (int i = 0; i < Math.min(10, results.totalHits); i++) {
+                processor.process(indexSearcher.doc(scoreDocs[i].doc));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return results.totalHits;
         }
-        return 0;
-
     }
 
     public static TopDocs search(final String query) {
         try {
             try (final IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(Constants.INDEX_PATH)))) {
-                return new IndexSearcher(reader).search(parseQuery(query), null,20);
+                return new IndexSearcher(reader).search(parseQuery(query), null, 20);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +72,7 @@ public class LocalSearcher {
     }
 
 
-    public static interface HitsProcessor{
+    public static interface HitsProcessor {
         public void process(final Document doc);
     }
 }
