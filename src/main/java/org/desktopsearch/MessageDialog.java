@@ -13,10 +13,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AlertDialog {
+public class MessageDialog {
     private final String message;
 
-    public AlertDialog(final String message) {
+    public MessageDialog(final String message) {
         this.message = message;
     }
 
@@ -54,6 +54,10 @@ public class AlertDialog {
             stage.getScene().getRoot().setEffect(null);
             dialog.close();
         };
+    }
+
+    public static void error(final String s, final Stage stage) {
+        new MessageDialog(s).show(stage);
     }
 
     class Coordinates {

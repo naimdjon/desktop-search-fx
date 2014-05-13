@@ -35,6 +35,12 @@
             </content>
         </ScrollPane>
     </center>
+    <bottom>
+        <HBox styleClass="bottomStatusBar"
+              minHeight="20.0">
+            <ProgressBar fx:id="progressBar" prefWidth="600.0"></ProgressBar>
+        </HBox>
+    </bottom>
     <stylesheets>
         <URL value="@main.css" />
     </stylesheets>

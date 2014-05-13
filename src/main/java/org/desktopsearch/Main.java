@@ -21,6 +21,7 @@ public class Main extends Application {
         final FXMLLoader fxmlLoader = new FXMLLoader(Resources.loadResource("./main.fxml"));
         final Pane contentPane = fxmlLoader.load();
         final SearchController controller = fxmlLoader.getController();
+        controller.stopIndexingProgress();
         controller.setStage(primaryStage);
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 768));
