@@ -3,20 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<BorderPane  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/"
-        styleClass="mainBody"
-        maxHeight="-Infinity"
-        maxWidth="-Infinity"
-        minHeight="-Infinity"
-        minWidth="-Infinity"
-        prefHeight="768.0"
-        prefWidth="600.0"
-        fx:controller="org.desktopsearch.SearchController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/"
+            styleClass="mainBody"
+            maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="768.0"
+            prefWidth="600.0"
+            fx:controller="org.desktopsearch.SearchController">
     <top>
-        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10" >
+        <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" spacing="10">
             <children>
                 <TextField fx:id="queryTextField" prefWidth="480" onAction="#performSearch"/>
-                <Button mnemonicParsing="false" text="Search" styleClass="searchButton"  onAction="#performSearch"/>
+                <Button mnemonicParsing="false" text="Search" styleClass="searchButton" onAction="#performSearch"/>
             </children>
         </HBox>
     </top>
@@ -26,9 +26,9 @@
                 <VBox>
                     <children>
                         <Label text="Total hits:" fx:id="totalHitsLabel"/>
-                        <ListView  fx:id="searchResults" minWidth="-Infinity"
-                                   prefWidth="560"
-                                   prefHeight="650"
+                        <ListView fx:id="searchResults" minWidth="-Infinity"
+                                  prefWidth="560"
+                                  prefHeight="650"
                                 />
                     </children>
                 </VBox>
@@ -38,10 +38,12 @@
     <bottom>
         <HBox styleClass="bottomStatusBar"
               minHeight="20.0">
-            <ProgressBar fx:id="progressBar" prefWidth="600.0"></ProgressBar>
+            <ProgressBar fx:id="progressBar"
+                         prefWidth="600.0"
+                         styleClass="progressBar"></ProgressBar>
         </HBox>
     </bottom>
     <stylesheets>
-        <URL value="@main.css" />
+        <URL value="@main.css"/>
     </stylesheets>
 </BorderPane>
