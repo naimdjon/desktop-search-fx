@@ -37,6 +37,7 @@ public class SearchController {
         try {
             if (Strings.isEmpty(queryTextField.getText())) {
                 MessageDialog.error("Empty query", stage);
+                return;
             }
             final Collection<String> children = new LinkedHashSet<>();
             search(queryTextField.getText(), System.out::println);
