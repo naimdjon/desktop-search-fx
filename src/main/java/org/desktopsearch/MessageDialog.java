@@ -20,11 +20,11 @@ public class MessageDialog {
         this.message = message;
     }
 
-    public void show(final Stage stage) {
+    public void show(final Stage ownerStage) {
         final Stage dialog = new Stage(StageStyle.TRANSPARENT);
         dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.initOwner(stage);
-        dialog.setScene(buildScene(stage, dialog));
+        dialog.initOwner(ownerStage);
+        dialog.setScene(buildScene(ownerStage, dialog));
         dialog.getScene().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
         final Node root = dialog.getScene().getRoot();
         final Coordinates dragCoordinates = new Coordinates();
@@ -36,7 +36,7 @@ public class MessageDialog {
             dialog.setX(mouseEvent.getScreenX() + dragCoordinates.x);
             dialog.setY(mouseEvent.getScreenY() + dragCoordinates.y);
         });
-        stage.getScene().getRoot().setEffect(new BoxBlur());
+        ownerStage.getScene().getRoot().setEffect(new BoxBlur());
         dialog.show();
     }
 
