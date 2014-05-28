@@ -49,23 +49,25 @@ public class Indexer {
         if (currentFuture != null && !currentFuture.isDone()) {
             throw new IllegalStateException("Index has already been started!");
         }
-        currentFuture = executor.submit(() -> {
-            final long start = System.nanoTime();
-            try {
-                System.out.println("Index path '" + Constants.INDEX_PATH + "'...");
-                final Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-                final IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
-                iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-                try (IndexWriter writer = new IndexWriter(FSDirectory.open(new File(Constants.INDEX_PATH)), iwc)) {
-                    indexDocsIfReadable(writer, documentsPath);
-                }
-            } catch (IOException e) {
-                System.out.println(" caught a " + e.getClass() +
-                        "\n with message: " + e.getMessage());
+        currentFuture = executor.submit(this::indexWork);
+    }
+
+    private void indexWork() {
+        final long start = System.nanoTime();
+        try {
+            System.out.println("Index path '" + Constants.INDEX_PATH + "'...");
+            final Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+            final IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+            iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+            try (IndexWriter writer = new IndexWriter(FSDirectory.open(new File(Constants.INDEX_PATH)), iwc)) {
+                indexDocsIfReadable(writer, documentsPath);
             }
-            final long end = System.nanoTime();
-            System.out.printf("Indexing took %d seconds for the path %s\n", TimeUnit.NANOSECONDS.toSeconds(end - start), documentsPath.getAbsolutePath());
-        });
+        } catch (IOException e) {
+            System.out.println(" caught a " + e.getClass() +
+                    "\n with message: " + e.getMessage());
+        }
+        final long end = System.nanoTime();
+        System.out.printf("Indexing took %d seconds for the path %s\n", TimeUnit.NANOSECONDS.toSeconds(end - start), documentsPath.getAbsolutePath());
     }
 
     private void indexDocsIfReadable(IndexWriter writer, File file) throws IOException {
