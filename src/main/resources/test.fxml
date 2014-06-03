@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+            prefWidth="1024.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="org.desktopsearch.SearchControllerV2">
+    <left>
+        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="250.0" styleClass="searchBox" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Search this computer" minWidth="240.0"/>
+                <TextField fx:id="queryTextField" prefHeight="22.0" prefWidth="165.0" styleClass="searchTextField" />
+                <Button alignment="TOP_RIGHT" mnemonicParsing="false" styleClass="searchButton" text="Search" />
+            </children>
+        </VBox>
+    </left>
+    <top>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </top>
+    <bottom>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </bottom>
+    <stylesheets>
+        <URL value="@alter.css" />
+    </stylesheets>
+</BorderPane>
